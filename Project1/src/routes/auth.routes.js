@@ -22,7 +22,7 @@ router.get('/google',passport.authenticate("google",{
     session:false
 }))
 
-router.get('/google/callback',passport.authenticate("google",{failureRedirect:'http://localhost:5173',session:false}),async(req,res)=>{
+router.get('/google/callback',passport.authenticate("google",{failureRedirect:process.env.CORS_ORIGIN,session:false}),async(req,res)=>{
     let token=jwt.sign({id:req.user._id},process.env.JWT_SECRET_KEY,{expiresIn:'1h'})
     
     let accessToken=generateAccessToken(req.user._id)
@@ -48,7 +48,7 @@ router.get('/google/callback',passport.authenticate("google",{failureRedirect:'h
      user.refreshToken=refreshToken
      await user.save()
 
-    return res.redirect("http://localhost:5173/home")
+    return res.redirect(process.env.REDIRECT_URL)
 })
 
 module.exports=router
