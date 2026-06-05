@@ -31,14 +31,14 @@ router.get('/google/callback',passport.authenticate("google",{failureRedirect:'h
 
      res.cookie("accessToken",accessToken,{
         httpOnly:true,
-        sameSite:'lax',
+        sameSite:'none',
         secure:false,
         maxAge:15*60*1000
     })
 
     res.cookie("refreshToken",refreshToken,{
         httpOnly:true,
-        sameSite:'lax',
+        sameSite:'none',
         secure:false,
         maxAge:24*60*60*1000
     })
