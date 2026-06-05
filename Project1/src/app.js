@@ -105,7 +105,6 @@ app.get('/partner',foodPartnerMiddleware,(req,res)=>{
       return res.status(200).json(new ApiResponse("Logged in partner",req.foodPartner))
      } catch (error) {
       
-      
         throw new ApiError(500,error.message)
      }
 })

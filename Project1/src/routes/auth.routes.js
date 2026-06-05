@@ -47,7 +47,7 @@ router.get('/google/callback',passport.authenticate("google",{failureRedirect:pr
      
      user.refreshToken=refreshToken
      await user.save()
-
+     
     return res.redirect(process.env.REDIRECT_URL)
 })
 
