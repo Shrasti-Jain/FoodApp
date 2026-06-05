@@ -48,8 +48,6 @@ export const setupInterceptor = (axiosInstance, store) => {
   }
 }
 
-
-
     if (!error.config?.skipDispatch) {
       store.dispatch(
         setError(
