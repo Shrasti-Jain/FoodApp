@@ -79,15 +79,15 @@ let getAccessController=asyncHandler(async(req,res)=>{
 let logoutController=asyncHandler((req,res)=>{
    res.clearCookie("accessToken",{
         httpOnly:true,
-        sameSite:'lax',
-        secure:false,
+        sameSite:'none',
+        secure:true,
         maxAge:15*60*1000
     })
 
     res.clearCookie("refreshToken",{
         httpOnly:true,
-        sameSite:'lax',
-        secure:false,
+        sameSite:'none',
+        secure:true,
         maxAge:24*60*60*1000
     })
 
