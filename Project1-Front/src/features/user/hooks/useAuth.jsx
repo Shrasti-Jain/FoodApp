@@ -3,6 +3,7 @@ import { useNavigate } from "react-router"
 import { axiosInstance } from "../../../config/axiosInstance"
 import { useDispatch } from "react-redux"
 import { setUser } from "../../../reducers/userSlice"
+const google=import.meta.env.VITE_GOOGLE
 
 export let useAuth=()=>{
     let useRegister=()=>{
@@ -10,7 +11,7 @@ export let useAuth=()=>{
           let inputRef = useRef({})
         
           let handleGoogle=()=>{
-              window.location.href='http://localhost:3000/api/auth/google'
+              window.location.href=google
           }
         
           
@@ -26,7 +27,7 @@ export let useAuth=()=>{
   let dispatch=useDispatch()
 
   let handleGoogle=()=>{
-   window.location.href='http://localhost:3000/api/auth/google'
+   window.location.href=google
   }
     return {handleGoogle,inputRef,dispatch,navigate}
     }
