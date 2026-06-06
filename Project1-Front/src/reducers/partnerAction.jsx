@@ -4,7 +4,6 @@ import { axiosInstance } from "../config/axiosInstance";
 
 export let currentPartner=createAsyncThunk("partner/me",async (_,thunkApi)=>{
     try {
-      
         
         let res=await axiosInstance.get('/partner',{
     skipDispatch: true
