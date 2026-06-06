@@ -247,7 +247,8 @@ useEffect(() => {
         </div>
 
 
-        <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
+        {
+          foodShow.length!=0 || show.length!=0?<div className="mt-4 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
           {activeTab=="food" ?foodShow.map((item) => (
             <div
               key={item._id}
@@ -374,9 +375,9 @@ useEffect(() => {
                 </div>
               </div>
             </div>
-          ))}
-                    
-        </div>
+          ))}                    
+        </div>:<h1 className="text-white text-xl">No Results found</h1> 
+        }
       </div>
     </div>
   );

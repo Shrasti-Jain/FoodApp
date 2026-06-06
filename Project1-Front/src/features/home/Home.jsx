@@ -50,7 +50,7 @@ const Home = () => {
   }, []);
 
   const categories = [
-    { name: "Pizza", icon: Pizza },
+    { name: "Paneer", icon: Pizza },
     { name: "Burger", icon: Beef },
     { name: "Cafe", icon: Coffee },
     { name: "Dessert", icon: IceCream },
