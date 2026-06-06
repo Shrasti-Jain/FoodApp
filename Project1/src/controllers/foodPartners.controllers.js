@@ -25,14 +25,14 @@ let verificationOtpController=asyncHandler(async (req,res,next)=>{
         res.cookie("accessToken",accessToken,{
         httpOnly:true,
         sameSite:'none',
-        secure:false,
+        secure:true,
         maxAge:15*60*1000
        })
        
         res.cookie("refreshToken",refreshToken,{
         httpOnly:true,
         sameSite:'none',
-        secure:false,
+        secure:true,
         maxAge:24*60*60*1000
         })
 
@@ -54,14 +54,14 @@ let loginPartnerController=asyncHandler(async(req,res,next)=>{
       res.cookie("accessToken",accessToken,{
         httpOnly:true,
         sameSite:'none',
-        secure:false,
+        secure:true,
         maxAge:15*60*1000
        })
        
         res.cookie("refreshToken",refreshToken,{
         httpOnly:true,
         sameSite:'none',
-        secure:false,
+        secure:true,
         maxAge:24*60*60*1000
         })
 
@@ -90,14 +90,14 @@ const logoutController=asyncHandler((req,res)=>{
    res.clearCookie("accessToken",{
           httpOnly:true,
           sameSite:'lax',
-          secure:false,
+          secure:true,
           maxAge:15*60*1000
       })
   
       res.clearCookie("refreshToken",{
           httpOnly:true,
           sameSite:'lax',
-          secure:false,
+          secure:true,
           maxAge:24*60*60*1000
       })
   
@@ -297,7 +297,7 @@ let getPartnerAccessController=asyncHandler(async(req,res)=>{
     res.cookie("accessToken",accessToken,{
         httpOnly:true,
         sameSite:"none",
-        secure:false,
+        secure:true,
         maxAge:15*60*1000
     })
 
