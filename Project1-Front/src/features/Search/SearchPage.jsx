@@ -75,6 +75,14 @@ const SearchPage = () => {
     }
    },[data,filter,category])
  
+  useEffect(() => {
+     const getFoods = async () => {
+       let res = await axiosInstance.get("/api/food/all");
+       setFoods(res.data.data);
+       setFoodshow(res.data.data)
+     };
+     getFoods();
+   }, []);
      
     useEffect(() => {
        let getPartners = async () => {
@@ -84,6 +92,7 @@ const SearchPage = () => {
          setshow(res.data.data)
        };
        getPartners();
+
 
      }, []);
      
@@ -227,9 +236,9 @@ const SearchPage = () => {
         </div>
 
 
-        {
-          foodShow.length!=0 || show.length!=0?<div className="mt-4 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
-          {activeTab=="food" ?foodShow.map((item) => (
+        <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
+          {
+            foodShow.length!=0 || show.length!=0?activeTab=="food" ?foodShow.map((item) => (
             <div
               key={item._id}
               className="group rounded-[26px] border border-white/8 bg-[#101522] overflow-hidden hover:border-[#4ea1ff]/40 hover:shadow-[0_0_22px_rgba(78,161,255,0.12)] transition-all duration-300"
@@ -355,9 +364,10 @@ const SearchPage = () => {
                 </div>
               </div>
             </div>
-          ))}                    
-        </div>:<h1 className="text-white text-xl">No Results found</h1> 
-        }
+          )):<h1 className="text-xl text-white">No Results found</h1>
+          }
+                    
+        </div>
       </div>
     </div>
   );
