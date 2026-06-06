@@ -4,8 +4,9 @@ import { Navigate, Outlet } from 'react-router'
 
 const ProtectedPartnerHome = () => {
     let {partner,isLoading}=useSelector((state)=>state.partner)
-    
-if (isLoading) {
+    let {isLoading:userLoading}=useSelector((state)=>state.user)
+
+if (isLoading || userLoading) {
   return (
     <div className="min-h-screen bg-[#090B12] flex items-center justify-center relative overflow-hidden">
       <div className="absolute top-[-120px] left-[-80px] w-[320px] h-[320px] bg-[#2d6bff]/10 blur-[100px] rounded-full" />
