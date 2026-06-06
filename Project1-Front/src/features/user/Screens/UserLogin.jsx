@@ -29,7 +29,7 @@ const UserLogin = () => {
 
     dispatch(setUser(res.data.data));
 
-    navigate("/home");
+    navigate("/home",{replce:true});
   }finally{
     setIsLoading(false)
   }

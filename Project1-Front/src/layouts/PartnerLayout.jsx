@@ -17,7 +17,7 @@ if (isLoading) {
   );
 }
 
-if(partner) return <Navigate to="/partner-home" replace/>
+if(partner) return <Navigate to="/partner-home" replace />
 
 return <Outlet/>
 }

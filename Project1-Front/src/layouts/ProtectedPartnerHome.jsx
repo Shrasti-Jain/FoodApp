@@ -4,7 +4,6 @@ import { Navigate, Outlet } from 'react-router'
 
 const ProtectedPartnerHome = () => {
     let {partner,isLoading}=useSelector((state)=>state.partner)
-    let {user}=useSelector((state)=>state.user)
     
 if (isLoading) {
   return (
@@ -18,7 +17,7 @@ if (isLoading) {
   );
 }
 
-    if(!partner && !user) return <Navigate to="/partner/login" replace />
+    if(!partner) return <Navigate to="/partner/login" replace />
     
   return <Outlet/>
 }

@@ -4,6 +4,7 @@ import { Navigate, Outlet } from 'react-router'
 
 const AuthLayout = () => {
   let {user,isLoading:userLoading}=useSelector((state)=>state.user)
+  let {partner}=useSelector((state)=>state.partner)
 
 if (userLoading ) {
   return (
@@ -18,6 +19,7 @@ if (userLoading ) {
 }
   
   if(user) return <Navigate to="/home" replace/>
+  if(partner) return <Navigate to='/partner-home' replace/>
   
   return <Outlet/>
 }

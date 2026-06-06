@@ -29,7 +29,7 @@ const PartnerLogin = () => {
     
     setIsLoading(false);
 
-    navigate("/partner-home");
+    navigate("/partner-home",{replce:true});
    } finally{
     setIsLoading(false)
    }
