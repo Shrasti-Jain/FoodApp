@@ -182,13 +182,15 @@ const AppRoutes = () => {
     },[error])
    
     useEffect(() => {
-  const checkAuth = async () => {
-    try {
-      await dispatch(currentUser()).unwrap()
-      await dispatch(currentPartner()).unwrap()
-    } catch {
-    }
-  };
+const checkAuth = async () => {
+  try {
+    await dispatch(currentUser()).unwrap()
+  } catch {}
+
+  try {
+    await dispatch(currentPartner()).unwrap()
+  } catch {}
+}
 
   checkAuth();
 }, [dispatch]);
