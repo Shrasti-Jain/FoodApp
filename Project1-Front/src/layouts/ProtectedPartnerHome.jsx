@@ -4,7 +4,7 @@ import { Navigate, Outlet } from 'react-router'
 
 const ProtectedPartnerHome = () => {
     let {partner,isLoading}=useSelector((state)=>state.partner)
-    
+
 if (isLoading) {
   return (
     <div className="min-h-screen bg-[#090B12] flex items-center justify-center relative overflow-hidden">
@@ -17,7 +17,7 @@ if (isLoading) {
   );
 }
 
-    if(!partner) return <Navigate to="/partner/login" />
+    if(!partner) return <Navigate to="/partner/login" replace />
     
   return <Outlet/>
 }

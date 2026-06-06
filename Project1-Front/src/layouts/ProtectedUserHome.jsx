@@ -18,7 +18,7 @@ if (isLoading) {
   );
 }
 
-    if(!user ) return <Navigate to="/login" />
+    if(!user ) return <Navigate to="/login" replace />
     
   return <Outlet/>
 }
