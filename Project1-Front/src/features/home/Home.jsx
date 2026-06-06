@@ -215,6 +215,7 @@ const Home = () => {
             const Icon = cat.icon;
             return (
               <button
+                 onClick={() => navigate(`/home/search?category=${encodeURIComponent(cat.name)}`)}
                 key={cat.name}
                 className="group min-w-fit px-4 py-2.5 rounded-2xl border border-white/8 bg-[#101522] hover:border-[#4ea1ff]/45 hover:bg-[#121a2b] hover:shadow-[0_0_18px_rgba(78,161,255,0.16)] transition-all duration-300 flex items-center gap-2"
               >

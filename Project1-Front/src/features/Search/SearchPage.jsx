@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useSearchParams } from "react-router";
 import {
   Search as SearchIcon,
   Filter,
@@ -32,6 +33,8 @@ import { axiosInstance } from "../../config/axiosInstance";
 
 const SearchPage = () => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const category = searchParams.get("category");
   const [activeTab, setActiveTab] = useState("food");
   const [sortBy, setSortBy] = useState("low-high");
   const [foods,setFoods]=useState([])
@@ -45,6 +48,11 @@ const SearchPage = () => {
    let handleSearch=(e)=>{
     setData(e.target.value);
    }
+   useEffect(() => {
+  if (category) {
+    setData(category);
+  }
+}, [category]);
    useEffect(()=>{
       if(activeTab=="partner"){
           if(data!="") setshow(partners.filter((e)=>e.businessname.toLowerCase().includes(data.toLowerCase())||e.contactname.toLowerCase().includes(data.toLowerCase())))
@@ -67,14 +75,26 @@ const SearchPage = () => {
     }
    },[data,filter])
  
-  useEffect(() => {
-     const getFoods = async () => {
-       let res = await axiosInstance.get("/api/food/all");
-       setFoods(res.data.data);
-       setFoodshow(res.data.data)
-     };
-     getFoods();
-   }, []);
+useEffect(() => {
+  const getFoods = async () => {
+    let res = await axiosInstance.get("/api/food/all");
+
+    setFoods(res.data.data);
+
+    if (category) {
+      const filtered = res.data.data.filter(
+        (food) =>
+          food.category.toLowerCase() === category.toLowerCase()
+      );
+
+      setFoodshow(filtered);
+    } else {
+      setFoodshow(res.data.data);
+    }
+  };
+
+  getFoods();
+}, [category]);
      
     useEffect(() => {
        let getPartners = async () => {
@@ -85,17 +105,8 @@ const SearchPage = () => {
        };
        getPartners();
 
-
      }, []);
      
-  const categories = [
-    { name: "Pizza", icon: Pizza },
-    { name: "Burger", icon: Beef },
-    { name: "Cafe", icon: Coffee },
-    { name: "Dessert", icon: IceCream },
-    { name: "Drinks", icon: Coffee },
-    { name: "Fast Food", icon: Beef },
-  ];
 
 
   if (partners.length==0 || foods.length==0) {
@@ -221,24 +232,6 @@ const SearchPage = () => {
                 <ChevronDown className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-[#8dbdff]" size={18} />
               </div>:null
             }
-            </div>
-
-
-            <div className="flex gap-3 overflow-x-auto pb-1 scrollbar-hide -mx-4 px-4 sm:mx-0 sm:px-0">
-              {categories.map((cat) => {
-                const Icon = cat.icon;
-                return (
-                  <button
-                    key={cat.name}
-                    className="group min-w-fit px-4 py-2.5 rounded-2xl border border-white/8 bg-[#0d1220] hover:border-[#4ea1ff]/45 hover:bg-[#121a2b] hover:shadow-[0_0_18px_rgba(78,161,255,0.16)] transition-all duration-300 flex items-center gap-2"
-                  >
-                    <Icon className="w-4 h-4 text-[#8dbdff] group-hover:text-white transition-colors" />
-                    <span className="text-sm text-zinc-200 group-hover:text-white transition-colors">
-                      {cat.name}
-                    </span>
-                  </button>
-                );
-              })}
             </div>
           </div>
         </div>
