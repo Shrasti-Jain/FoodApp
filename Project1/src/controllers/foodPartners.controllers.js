@@ -89,14 +89,14 @@ const getPartnerByIdController=asyncHandler(async(req,res,next)=>{
 const logoutController=asyncHandler((req,res)=>{
    res.clearCookie("accessToken",{
           httpOnly:true,
-          sameSite:'lax',
+          sameSite:'none',
           secure:true,
           maxAge:15*60*1000
       })
   
       res.clearCookie("refreshToken",{
           httpOnly:true,
-          sameSite:'lax',
+          sameSite:'none',
           secure:true,
           maxAge:24*60*60*1000
       })
