@@ -73,28 +73,8 @@ const SearchPage = () => {
         );
      setFoodshow(updated)
     }
-   },[data,filter])
+   },[data,filter,category])
  
-useEffect(() => {
-  const getFoods = async () => {
-    let res = await axiosInstance.get("/api/food/all");
-
-    setFoods(res.data.data);
-
-    if (category) {
-      const filtered = res.data.data.filter(
-        (food) =>
-          food.category.toLowerCase() === category.toLowerCase()
-      );
-
-      setFoodshow(filtered);
-    } else {
-      setFoodshow(res.data.data);
-    }
-  };
-
-  getFoods();
-}, [category]);
      
     useEffect(() => {
        let getPartners = async () => {
