@@ -15,9 +15,6 @@ let partnerSlice=createSlice({
         removePartner:(state)=>{
             state.partner=null
             state.isLoading=false
-        },
-        setLoading:(state)=>{
-            state.isLoading=false;
         }
     },
     extraReducers:(builder)=>{
@@ -39,5 +36,5 @@ let partnerSlice=createSlice({
     }
 })
 
-export const {setPartner,removePartner,setLoading}=partnerSlice.actions
+export const {setPartner,removePartner}=partnerSlice.actions
 export default partnerSlice.reducer

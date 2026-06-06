@@ -185,10 +185,8 @@ const AppRoutes = () => {
   const checkAuth = async () => {
     try {
       await dispatch(currentUser()).unwrap()
+      await dispatch(currentPartner()).unwrap()
     } catch {
-      try {
-        await dispatch(currentPartner()).unwrap()
-      } catch {}
     }
   };
 

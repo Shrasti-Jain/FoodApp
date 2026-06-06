@@ -4,9 +4,9 @@ import { Navigate, Outlet } from 'react-router'
 
 const ProtectedUserHome = () => {
     let {user,isLoading}=useSelector((state)=>state.user)
-    let {partner,isLoading:partnerLoading}=useSelector((state)=>state.partner)
+    
 
-if (isLoading || partnerLoading) {
+if (isLoading) {
   return (
     <div className="min-h-screen bg-[#090B12] flex items-center justify-center relative overflow-hidden">
       <div className="absolute top-[-120px] left-[-80px] w-[320px] h-[320px] bg-[#2d6bff]/10 blur-[100px] rounded-full" />
@@ -18,7 +18,7 @@ if (isLoading || partnerLoading) {
   );
 }
 
-    if(!user && !partner) return <Navigate to="/login" />
+    if(!user ) return <Navigate to="/login" />
     
   return <Outlet/>
 }
