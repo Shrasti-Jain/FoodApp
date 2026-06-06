@@ -61,7 +61,9 @@ const SearchPage = () => {
       else{
          let updated=foods
          if(data=="") updated=(foods)
-         if(data!="" || filter=="") updated=(foods.filter((e)=>e.name.toLowerCase().includes(data.toLowerCase())))
+         if(data!="" || filter=="") updated=(foods.filter((e)=>e.name.toLowerCase().includes(data.toLowerCase()) ||
+    e.category.toLowerCase().includes(data.toLowerCase())
+))
          if(filter=="lh"){
              updated = [...updated].sort(
            (a, b) => a.price - b.price
@@ -73,7 +75,7 @@ const SearchPage = () => {
         );
      setFoodshow(updated)
     }
-   },[data,filter,category])
+   },[data,filter,category,foods])
  
   useEffect(() => {
      const getFoods = async () => {
@@ -197,7 +199,7 @@ const SearchPage = () => {
                   className="absolute left-4 top-1/2 -translate-y-1/2 text-[#388eef]"
                   size={20}
                 />
-                <input onChange={handleSearch}
+                <input value={data} onChange={handleSearch}
                   type="text"
                   placeholder={
                     activeTab === "food"
@@ -238,7 +240,8 @@ const SearchPage = () => {
 
         <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
           {
-            foodShow.length!=0 || show.length!=0?activeTab=="food" ?foodShow.map((item) => (
+            activeTab=="food" ?
+           (foodShow.length>0? foodShow.map((item) => (
             <div
               key={item._id}
               className="group rounded-[26px] border border-white/8 bg-[#101522] overflow-hidden hover:border-[#4ea1ff]/40 hover:shadow-[0_0_22px_rgba(78,161,255,0.12)] transition-all duration-300"
@@ -294,8 +297,9 @@ const SearchPage = () => {
                 </div>
               </div>
             </div>
-          )):
-          show.map((partner) => (
+          )):<h1 className="text-xl text-white">No Results Found</h1>)
+          :
+         ( show.length > 0 ? show.map((partner) => (
                  <div
               key={partner._id}
               className="group rounded-[28px] border border-white/8 bg-[#101522] overflow-hidden hover:border-[#4ea1ff]/40 hover:shadow-[0_0_22px_rgba(78,161,255,0.12)] transition-all duration-300"
@@ -364,9 +368,8 @@ const SearchPage = () => {
                 </div>
               </div>
             </div>
-          )):<h1 className="text-xl text-white">No Results found</h1>
-          }
-                    
+          )):<h1 className="text-xl text-white">No Results Found</h1>)
+          }      
         </div>
       </div>
     </div>
