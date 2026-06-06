@@ -5,7 +5,7 @@ let partnerSlice=createSlice({
     name:"partner",
     initialState:{
         partner:null,
-        isLoading:true
+        isLoading:false
     },
     reducers:{
         setPartner:(state,action)=>{
