@@ -11,12 +11,12 @@ const Reel = () => {
   const [pausedVideo, setPausedVideo] = useState(null);
   const [all, setAll] = useState([]);
   const [open, setOpen] = useState(false);
-  const [changelike, setChangelike] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
   const dropdownRef = useRef();
   const user = useSelector((state) => state.user.user);
+  let snapshots=useRef(null)
 
   useEffect(() => {
     const call = async () => {
@@ -24,8 +24,30 @@ const Reel = () => {
       setAll(res.data.data);
     };
     call();
-    setChangelike(false);
-  }, [changelike]);
+  }, []);
+
+  async function handleLike(id){
+      snapshots.current=structuredClone(all);
+      setAll(prev=>
+        prev.map(item=>{
+          if(item._id!=id) return item;
+
+          const liked=item.likes.includes(user._id);
+
+          return {
+            ...item,
+            likes:liked?item.likes.filter((e)=>e!=user._id):[...item.likes,user._id]
+          }
+        })
+      )
+      try {
+      const res = await axiosInstance.get(`/api/food/like-unlike/${id}`);
+      console.log(res);
+      } catch (error) {
+        console.log(error);
+        setAll(snapshots.current)
+      }
+  }
 
   useEffect(() => {
     const closeDropdown = (e) => {
@@ -262,12 +284,7 @@ const Reel = () => {
   {/* Like */}
   <button className="flex flex-col items-center gap-1">
     <div
-      onClick={async () => {
-        await axiosInstance.get(
-          `api/food/like-unlike/${item._id}`
-        );
-        setChangelike(true);
-      }}
+      onClick={()=>handleLike(item._id)}
       className="w-12 h-12 rounded-full bg-black/20 backdrop-blur-lg flex items-center justify-center"
     >
       <Heart
