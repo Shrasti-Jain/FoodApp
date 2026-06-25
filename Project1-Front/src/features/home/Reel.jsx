@@ -56,11 +56,11 @@ const Reel = () => {
     const isSaved = user.collection.some(
   (q) => q._id== id
 );
-   dispatch( setUser({
+   dispatch(setUser({
       ...user,
       collection: isSaved
         ? user.collection.filter(
-            (q) => q._id.toString() !== id
+            (q) => q._id != id
           )
         : [...user.collection,id],
     })
@@ -68,7 +68,6 @@ const Reel = () => {
     try{
       let res=await axiosInstance.post('/api/user/collection',{foodId:id})
       toast.success(res.data.message)
-      dispatch(setUser(res.data.data)) 
     }
     catch(error){
       console.log(error);
