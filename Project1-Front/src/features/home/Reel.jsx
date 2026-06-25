@@ -17,6 +17,7 @@ const Reel = () => {
   const dropdownRef = useRef();
   const user = useSelector((state) => state.user.user);
   let snapshots=useRef(null)
+  let saveSnapshot=useRef(null)
 
   useEffect(() => {
     const call = async () => {
@@ -46,8 +47,35 @@ const Reel = () => {
       } catch (error) {
         console.log(error);
         setAll(snapshots.current)
+        toast.error("Failed to update your like")
       }
   }
+
+  async function handleSave(id){
+    saveSnapshot.current=structuredClone(user)
+    const isSaved = user.collection.some(
+  (q) => q._id== id
+);
+   dispatch( setUser({
+      ...user,
+      collection: isSaved
+        ? user.collection.filter(
+            (q) => q._id.toString() !== id
+          )
+        : [...user.collection,id],
+    })
+      )
+    try{
+      let res=await axiosInstance.post('/api/user/collection',{foodId:id})
+      toast.success(res.data.message)
+      dispatch(setUser(res.data.data)) 
+    }
+    catch(error){
+      console.log(error);
+       dispatch(setUser(saveSnapshot.current)) 
+      toast.error("Failed to update your collection")
+    }
+  } 
 
   useEffect(() => {
     const closeDropdown = (e) => {
@@ -302,11 +330,7 @@ const Reel = () => {
   {/* Collection */}
   <button className="flex flex-col items-center gap-1">
     <div
-      onClick={async ()=>{
-       let res=await axiosInstance.post('/api/user/collection',{foodId:item._id})
-       toast.success(res.data.message)
-         dispatch(setUser(res.data.data)) 
-      }}
+      onClick={()=>handleSave(item._id)}
       className="w-12 h-12 rounded-full bg-black/20 backdrop-blur-lg flex items-center justify-center"
     >
       <Bookmark size={22} className="text-white" />
